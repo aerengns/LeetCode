@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int mirrorReflection(int p, int q) {
+        int h =0;
+        char dh = 'r';
+        char dv = 'u';
+        while(h!=p)
+        {
+            
+            if(h+q>p)
+            {
+                if(dv == 'u')
+                {
+                    dv = 'd';
+                    h=q-(p-h);
+                }
+                else if(dv == 'd')
+                {
+                    dv = 'u';
+                    h = q-(p-h);
+                }
+            }
+            else if(h+q<p)
+            {
+                if(dh == 'r')
+                    dh = 'l';
+                else if(dh == 'l')
+                    dh = 'r';
+                h+=q;
+            }
+            else
+                break;
+        }
+        if(dv == 'd')
+            return 0;
+        if(dh== 'r')
+            return 1;
+        if(dh == 'l')
+            return 2;
+        return 3;
+        
+    }
+};

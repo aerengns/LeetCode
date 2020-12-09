@@ -1,0 +1,47 @@
+class Solution {
+private:
+    int digi(int a){
+        int res = 0;
+        while(a>0){
+            res++;
+            a/=10;
+        }
+        return res;
+    }
+    
+    int helper(vector<string>& digits,string num){
+        int res = 0;
+        int i = 0;
+       
+        if(num.length() == 0)
+            return 1;
+        
+        while(i<digits.size() && stoi(digits[i]) < (num[0]-'0')){      
+			res += pow(digits.size(),num.length()-1);
+            i++;
+        }
+        if(i<digits.size() && stoi(digits[i]) == (num[0]-'0')){
+            res += helper(digits,num.substr(1));
+        }
+        return res;
+        
+    }
+public:
+    int atMostNGivenDigitSet(vector<string>& digits, int n) {
+        int res = 0;
+        int d = digi(n);
+        for(int i = 1;i<=d-1;i++){
+            res += pow(digits.size(),i);
+        }
+        
+        string num="";
+        while(n>0){
+            num += to_string(n%10);
+            n/=10;
+        }
+        reverse(num.begin(),num.end());
+        res += helper(digits,num);
+        
+        return res;
+    }
+};

@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int longestMountain(vector<int>& A) {
+        int size = A.size()-1, m=0, t=0,flag = 1;
+        for(int i=0;i<size;i++)
+        {
+            if(flag==1 && t!=0)
+            {
+                if(A[i]>A[i+1])
+                    flag = 0;
+                if(A[i]!=A[i+1])
+                    t++;
+                if(A[i]==A[i+1])
+                {
+                    t=0;
+                }               
+            }
+            else if(flag==0 && t!=0)
+            {
+                if(A[i]>A[i+1])
+                    t++;
+                else
+                {
+                    flag = 1;
+                    m = max(m,t);
+                    t=0;
+                }
+            }
+            if(flag == 0)
+                m = max(m,t);
+            if(t==0 && A[i]<A[i+1])
+                t++;
+        }
+        if(m>=2)
+            return m+1;
+        return 0;
+    }
+};

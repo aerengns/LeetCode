@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        int len = flowerbed.size()-1;
+        int empty_spots=0;
+        if(len==0 && flowerbed[0]==0)
+            return n<=1;
+        if(len==0 && flowerbed[0]==1)
+            return n<=0;
+        if(flowerbed[0]==0 && flowerbed[1]==0)
+        {
+            empty_spots++;
+            flowerbed[0]=1;
+        }
+        for(int i=1;i<len;i++)
+        {
+            if(flowerbed[i]==0)
+            {
+                if(flowerbed[i-1]==1 || flowerbed[i+1]==1)
+                    continue;
+                empty_spots++;
+                flowerbed[i]=1;
+                continue;
+            }
+        }
+        if(flowerbed[len]==0 && flowerbed[len-1]==0)
+            empty_spots++;
+        
+        return n<=empty_spots;
+    }
+};

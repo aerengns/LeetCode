@@ -1,0 +1,30 @@
+class Solution {
+private:
+    /*int calc(int p,int t, int b,int i)
+    {
+        int res;
+        if(t-1==0)
+            return 1;
+        else
+            return (p+1-i)*calc(p,t-1,b,i+1);
+    }*/
+public:
+    int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        int t =  minutesToTest/minutesToDie;
+        int p=0,mn;
+        /*
+        while(true)
+        {
+            if(p+1-t<=0)
+            {
+                p++;
+                continue;
+            }
+            if(pow(2,p+1-t)*calc(p,t,buckets,0)>=buckets)
+                return p;
+            p++;
+        }*/
+        while (pow(t + 1, p) < buckets) ++p;
+        return p;
+    }
+};

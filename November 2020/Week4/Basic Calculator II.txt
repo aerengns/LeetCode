@@ -1,0 +1,48 @@
+class Solution {
+private:
+    int getNextNum(string& s, int& i) {
+        int len =s.length();
+        while (i < len && s[i] == ' ') ++i;
+        int num = 0;
+        while (i < len && isdigit(s[i]))
+            num = num*10 + (s[i++]-'0');
+
+        return num;
+    }
+    
+    char getNextOpt(string& s, int& i) {
+        int len =s.length();
+        while (i < len && s[i] == ' ') ++i;
+        return !isdigit(s[i]) ? s[i++] : '+';
+    }
+    
+public:
+    int calculate(string s) {
+        stack<int> st;
+        int len =s.length();
+        int i = 0;
+        while (i < len) {
+            char opr = getNextOpt(s, i);
+            switch(opr) {
+                case '+':
+                    st.push(getNextNum(s, i));
+                    break;
+                case '-':
+                    st.push(-getNextNum(s, i));
+                    break;
+                case '*': 
+                    st.top() *= getNextNum(s, i);
+                    break;
+                case '/':
+                    st.top() /= getNextNum(s, i);
+                    break;
+            }
+        }
+        int sum = 0;
+        while (!st.empty()) {
+            sum += st.top();
+            st.pop();
+        }
+        return sum;
+    }
+};

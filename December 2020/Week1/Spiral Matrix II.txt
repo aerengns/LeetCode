@@ -1,0 +1,96 @@
+class Solution {
+    void print(vector<vector<int>> matrix)
+    {
+        for(vector<int> i :matrix){
+            for(int j:i)
+                cout<<j;
+            cout<<"\n------------------------------"<<endl;
+        }
+    }
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<int> x(n);
+        vector<vector<int>> matrix;
+        for(int i=0;i<n;i++)
+            matrix.push_back(x);
+        int val=1, i=0, j=0;
+        char dir='r';
+        while(val<=n*n)
+        {
+            if(dir=='r' && j<n && matrix[i][j]==0)
+            {
+                matrix[i][j++]=val++;
+                continue;
+            }
+            else if(dir=='d' && i<n && matrix[i][j]==0)
+            {
+                matrix[i++][j]=val++;
+                continue;
+            }
+            else if(dir=='l' && j>=0 && matrix[i][j]==0)
+            {
+                matrix[i][j--]=val++;
+                continue;
+            }
+            else if(dir=='u' && i>=0 && matrix[i][j]==0)
+            {
+                matrix[i--][j]=val++;
+                continue;
+            }
+            
+            if(j>=n){
+                dir='d';
+                j--;
+                i++;
+                continue;
+            }
+            else if(j<0){
+                dir='u';
+                j++;
+                i--;
+                continue;
+            }
+            else if(i>=n){
+                dir='l';
+                j--;
+                i--;
+                continue;
+            }
+            else if(i<0){
+                dir='r';
+                j++;
+                i++;
+                continue;
+            }
+            if(matrix[i][j]!=0)
+            {
+                switch(dir)
+                {
+                    case 'd':
+                        dir='l';
+                        i--;
+                        j--;
+                        break;
+                    case 'l':
+                        dir='u';
+                        i--;
+                        j++;
+                        break;
+                    case 'u':
+                        dir='r';
+                        j++;
+                        i++;
+                        break;
+                    case 'r':
+                        dir='d';
+                        j--;
+                        i++;
+                        break;
+                }
+            }
+        }
+        
+        print(matrix);
+        return matrix;
+    }
+};

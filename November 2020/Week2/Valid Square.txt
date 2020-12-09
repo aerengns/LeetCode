@@ -1,0 +1,24 @@
+class Solution {
+private:
+    double dis(vector<int>& p1, vector<int>& p2)
+    {
+        double d;
+        d = sqrt(pow(abs(p1[0]-p2[0]),2)+pow(abs(p1[1]-p2[1]),2));
+        return d;
+    }
+public:
+    bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
+        vector<double> arr(6);
+        arr[0] = dis(p1,p2);
+        arr[1] = dis(p1,p3);
+        arr[2] = dis(p1,p4);
+        arr[3] = dis(p2,p3);
+        arr[4] = dis(p2,p4);
+        arr[5] = dis(p3,p4);
+        sort(arr.begin(),arr.end());
+        
+        if(arr[0]==arr[3] && arr[4]==arr[5] && arr[4]!=arr[0])
+            return true;
+        return false;
+    }
+};

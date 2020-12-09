@@ -1,0 +1,53 @@
+class Solution {
+private:
+    bool reach(vector<vector<int>>& paths,int i, int end)
+    {
+        if(paths[i][0]==i && paths[i][1]==i)
+            return true;
+        if(paths[i][2]!=0)
+            return false;
+        paths[i][2]+=1;
+        if(paths[i][0]==-1 && paths[i][1]==-1)
+            return false;
+        if(paths[i][0]==-1)
+            return reach(paths,paths[i][1],end);
+        if(paths[i][1]==-1)
+            return reach(paths,paths[i][0],end);
+        return reach(paths,paths[i][0],end) || reach(paths,paths[i][1],end);
+    }
+public:
+    bool canReach(vector<int>& arr, int start) {
+        int len = arr.size();
+        int ind=0;
+        vector<int> zeros;
+        for(;ind<len;ind++)
+        {
+            if(arr[ind]==0)
+                zeros.push_back(ind);
+        }
+        if(!zeros.size())
+            return false;
+        vector<vector<int>> paths(len,vector<int>(3,0));
+        for(int i=0;i<len;i++)
+        {
+            if(i+arr[i]>=len)
+                paths[i][1]=-1;
+            else
+                paths[i][1]=i+arr[i];
+            if(i-arr[i]<0)
+                paths[i][0]=-1;
+            else
+                paths[i][0]=i-arr[i];
+            
+        }
+        for(int i : zeros){
+            if(reach(paths,start,i))
+                return true;
+            for(int i=0;i<len;i++)
+            {
+                paths[i][2]=0;
+            }
+        }
+        return false;
+    }
+};

@@ -1,0 +1,33 @@
+class Solution {
+private:
+    void resc(vector<int> t,vector<vector<int>> &res)
+    {
+        int i=0;
+        int size = res.size();
+        while(true)
+        {
+            int m = 0;
+            if(i==size)
+            {
+                res.push_back(t);
+                return;
+            }
+            if(res[i][1]>=t[0])
+            {
+                m= max(res[i][1],t[1]);
+                res[i][1]=m;
+                return;
+            }
+            else
+                i++;
+        }
+    }
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> res;
+        sort(intervals.begin(),intervals.end());
+        for(vector<int> i : intervals)
+            resc(i,res);
+        return res;
+    }
+};

@@ -1,0 +1,16 @@
+class Solution(object):
+    
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        res = sum(nums)/2.0
+        arr = set([nums[0]])
+        for i in nums[1:]:
+            for j in list(arr):
+                arr.add(i+j)
+        return res in arr
+        
+        
+        

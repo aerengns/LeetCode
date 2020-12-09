@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& bs) {
+        multiset<pair<int, int>> line;
+        for (auto &b : bs) {
+            line.insert({b[0], -b[2]});
+            line.insert({b[1], b[2]});
+        }
+        vector<vector<int>> res;
+        multiset<int> heights;
+        for (auto &entry : line) {
+            int x = entry.first, y = entry.second, h = abs(y);
+            bool shouldInsert;
+            if (y > 0) 
+            {
+                heights.erase(heights.find(-h));
+                shouldInsert = heights.empty() || (h > -*heights.begin());
+            }
+            else 
+            {
+                shouldInsert = heights.empty() || (h > -*heights.begin());
+                heights.insert(-h);
+            }
+            if (!shouldInsert) 
+                continue;
+            if (!heights.empty()) 
+            {
+                res.push_back({x, -*heights.begin()});
+            } 
+            else 
+            {
+                res.push_back({x, 0});
+            }
+        }
+        return res;
+    }
+};

@@ -1,0 +1,18 @@
+class Solution {
+private:
+    string Mors_Alphabet[26]={".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        unordered_map<string,int> m;
+        for(string s :words)
+        {
+            string res="";
+            for(char c:s)
+            {
+                res+=Mors_Alphabet[c-'a'];
+            }
+            m[res]++;
+        }
+        return m.size();
+    }
+};

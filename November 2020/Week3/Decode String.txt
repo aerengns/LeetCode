@@ -1,0 +1,20 @@
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        while "[" in s:
+            c = s.find("]")
+            o = c
+            while True:
+                if s[o] == "[":
+                    break;
+                o-=1
+            ind = o-1
+            while ind>=0 and s[ind].isnumeric():
+                ind -=1
+            val = int(s[ind+1:o])
+            s = s[:ind+1] + val * s[o+1:c] + s[c+1:]
+        return s
+        
